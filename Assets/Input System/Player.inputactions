@@ -28,28 +28,6 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "up",
-                    "id": "6fcf9606-e6eb-4a19-b228-7cd1796e19dd",
-                    "path": "",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "down",
-                    "id": "30971852-fddd-486c-90bb-4940d3d2e9b9",
-                    "path": "",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
                     "name": "left",
                     "id": "ef0dba4d-b3b4-4537-885f-f28aaaa35037",
                     "path": "<Keyboard>/a",
@@ -63,7 +41,7 @@
                 {
                     "name": "right",
                     "id": "38fe1267-617c-403c-9aae-23c3f6b8360e",
-                    "path": "<Keyboard>/r",
+                    "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

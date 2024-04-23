@@ -8,7 +8,8 @@ public class PlayerMovment : MonoBehaviour
 {
     Rigidbody rb;
 
-    Vector2 movementInput;
+    Vector3 movementInput;
+    Vector3 playerVelocity;
 
     float XDirection = 1;
     float ZDirection = 1;
@@ -25,7 +26,9 @@ public class PlayerMovment : MonoBehaviour
         XDirection = movementInput.x;
         ZDirection = movementInput.y;
 
-        rb.velocity = new Vector3 (XDirection, 0, ZDirection);
+        Vector3 Test = transform.right * XDirection + transform.forward * movementInput.z;
+
+        rb.velocity = Test;
     }
 
     void OnMove(InputValue value)
