@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public enum WeaponState
@@ -18,6 +19,13 @@ public class WeaponHandler : MonoBehaviour
     [SerializeField] GameObject[] meleeWeapon;
 
     #endregion
+
+
+    public TextMeshProUGUI ammoText;
+    public TextMeshProUGUI whatWeaponText;
+
+    float mouseAxisBreakpoin = 1.0f;
+    float ScollWhellDelta = 0.0f;
 
     void Start()
     {
