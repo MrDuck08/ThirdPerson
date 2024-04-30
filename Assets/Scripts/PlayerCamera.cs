@@ -9,9 +9,12 @@ public class PlayerCamera : MonoBehaviour
     public Transform playerBody;
 
     float xRotation = 0f;
+    float yRotation = 0f;
+
 
     void Start()
     {
+        
         Cursor.lockState = CursorLockMode.Locked;
     }
 
@@ -22,10 +25,12 @@ public class PlayerCamera : MonoBehaviour
         float MouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
 
         xRotation -= MouseY;
+        yRotation += MouseX;
+
 
         xRotation = Mathf.Clamp(xRotation, 0f, 30);
 
-        transform.localRotation = (UnityEngine.Quaternion.Euler(xRotation, 0f, 0f));
-        playerBody.Rotate(UnityEngine.Vector3.up * MouseX);
+        playerBody.rotation = Quaternion.Euler(0f, yRotation, 0f);
+        transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
     }
 }
