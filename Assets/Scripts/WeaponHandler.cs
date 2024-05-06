@@ -40,7 +40,7 @@ public class WeaponHandler : MonoBehaviour
             currentWeapon.Fire();
         }
 
-        Debug.Log(currentWeapon.ammunition.ToString() + " Ammo");
+        //Debug.Log(currentWeapon.ammunition.ToString() + " Ammo");
 
         WhatWeaponToShow();
     }
@@ -94,6 +94,7 @@ public class WeaponHandler : MonoBehaviour
         {
             weapon.gameObject.SetActive(false);
         }
+        Debug.Log(currentWeaponIndex);
         currentWeapon = avilableWeapons[currentWeaponIndex];
         currentWeapon.gameObject.SetActive(true);
     }

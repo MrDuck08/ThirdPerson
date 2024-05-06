@@ -253,17 +253,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da9479657a3f108449eb53ef4ec85fc3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponType: 4
-  ammunition: 0
+  weaponType: 3
+  ammunition: 689
   weaponRange: 1337
   ignoreHitMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4
   enemyMask:
     serializedVersion: 2
     m_Bits: 0
-  hitParticle: {fileID: 0}
-  muzzleFlash: {fileID: 0}
 --- !u!1 &263072916
 GameObject:
   m_ObjectHideFlags: 0
@@ -471,10 +469,10 @@ MonoBehaviour:
   myPlayerMovment: {fileID: 263072922}
   meleeWeapon: []
   avilableWeapons:
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 551187887}
+  - {fileID: 1599730536}
   - {fileID: 135404046}
-  currentWeapon: {fileID: 135404046}
+  currentWeapon: {fileID: 551187887}
 --- !u!1 &551187885
 GameObject:
   m_ObjectHideFlags: 0
@@ -484,6 +482,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 551187886}
+  - component: {fileID: 551187887}
   m_Layer: 0
   m_Name: Melle
   m_TagString: Untagged
@@ -508,6 +507,27 @@ Transform:
   - {fileID: 2122001720}
   m_Father: {fileID: 120852310}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &551187887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 551187885}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fe5a054ec4d36a458104889958e8e73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponType: 0
+  ammunition: 0
+  weaponRange: 1337
+  ignoreHitMask:
+    serializedVersion: 2
+    m_Bits: 4
+  enemyMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -1032,7 +1052,7 @@ GameObject:
   - component: {fileID: 1383313845}
   m_Layer: 0
   m_Name: Main Camera
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1136,6 +1156,7 @@ GameObject:
   - component: {fileID: 1599730532}
   - component: {fileID: 1599730535}
   - component: {fileID: 1599730534}
+  - component: {fileID: 1599730536}
   m_Layer: 0
   m_Name: Launcher
   m_TagString: Untagged
@@ -1208,6 +1229,27 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1599730531}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1599730536
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1599730531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e74d031ebaae1464d97ad27d37ccdaac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponType: 1
+  ammunition: 747
+  weaponRange: 1337
+  ignoreHitMask:
+    serializedVersion: 2
+    m_Bits: 4
+  enemyMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &2122001719
 GameObject:
   m_ObjectHideFlags: 0

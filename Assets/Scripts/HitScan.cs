@@ -4,41 +4,41 @@ using UnityEngine;
 
 public class HitScan : Weapon
 {
-    public ParticleSystem hitParticle = null;
-    public ParticleSystem muzzleFlash = null;
+    //public ParticleSystem hitParticle = null;
+    //public ParticleSystem muzzleFlash = null;
 
     public override void Start()
     {
-        hitParticle.gameObject.SetActive(false);
+        //hitParticle.gameObject.SetActive(false);
         base.Start();
     }
 
     public override bool Fire()
     {
-        muzzleFlash.Play();
+        //muzzleFlash.Play();
 
         if (base.Fire() == false)
         {
             return true;
         }
 
-        hitParticle.gameObject.SetActive(false);
+        //hitParticle.gameObject.SetActive(false);
 
         Ray WeaponRay = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
         RaycastHit hit = new RaycastHit();
 
         if (Physics.Raycast(WeaponRay, out hit, weaponRange, ~ignoreHitMask))
         {
-            hitParticle.Play();
+            //hitParticle.Play();
 
-            hitParticle.transform.SetParent(null);
-            hitParticle.transform.position = hit.point;
+            //hitParticle.transform.SetParent(null);
+            //hitParticle.transform.position = hit.point;
 
-            hitParticle.transform.position = hit.point;
-            hitParticle.transform.forward = hit.normal;
-            hitParticle.transform.Translate(hit.normal.normalized * 0.1f);
+            //hitParticle.transform.position = hit.point;
+            //hitParticle.transform.forward = hit.normal;
+            //hitParticle.transform.Translate(hit.normal.normalized * 0.1f);
 
-            hitParticle.gameObject.SetActive(true);
+            //hitParticle.gameObject.SetActive(true);
             Debug.Log(hit);
             var PlayerHit = hit.transform.gameObject.GetComponent<PlayerMovment>();
         }
