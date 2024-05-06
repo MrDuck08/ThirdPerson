@@ -5,40 +5,112 @@ using UnityEngine;
 
 public enum WeaponState
 {
-    unarmed = 0,
-    HitScan = 1,
-    Projectile = 2,
-    Melee = 3,
+    Melee = 0,
+    Projectile = 1,
+    Hitscan = 3,
     Total
 }
 
 public class WeaponHandler : MonoBehaviour
 {
-    #region Melee
+    public PlayerMovment myPlayerMovment = null;
 
     [SerializeField] GameObject[] meleeWeapon;
 
-    #endregion
+    public Weapon[] avilableWeapons = new Weapon[(int)WeaponState.Total];
+    public Weapon currentWeapon = null;
 
-
-    public TextMeshProUGUI ammoText;
-    public TextMeshProUGUI whatWeaponText;
 
     float mouseAxisBreakpoin = 1.0f;
     float ScollWhellDelta = 0.0f;
 
-    void Start()
+    private void Update()
     {
-        
+        HandleWeaponSwap();
+
+        foreach (Weapon weapon in avilableWeapons)
+        {
+            weapon.gameObject.SetActive(false);
+        }
+
+        currentWeapon.gameObject.SetActive(true);
+
+        if (Input.GetMouseButtonDown(0) && currentWeapon != null)
+        {
+            currentWeapon.Fire();
+        }
+
+        Debug.Log(currentWeapon.ammunition.ToString() + " Ammo");
+
+        WhatWeaponToShow();
     }
 
-    void Update()
+    void WhatWeaponToShow()
     {
-        
+        int CurrenWeaponIndex = (int)currentWeapon.weaponType;
+        if (CurrenWeaponIndex == (int)WeaponState.Projectile)
+        {
+            Debug.Log("Projectile");
+        }
+        if (CurrenWeaponIndex == (int)WeaponState.Melee)
+        {
+            Debug.Log("Melee");
+        }
     }
 
-    public void Melee()
+    public void Start()
+    {
+        int currentWeaponIndex = (int)currentWeapon.weaponType;
+        WeaponSwapAnimation(currentWeaponIndex);
+    }
+    private void HandleWeaponSwap()
     {
 
+        ScollWhellDelta += Input.mouseScrollDelta.y;
+        if (Mathf.Abs(ScollWhellDelta) > mouseAxisBreakpoin)
+        {
+            int SwapDirection = (int)Mathf.Sign(ScollWhellDelta);
+            ScollWhellDelta -= SwapDirection * mouseAxisBreakpoin;
+
+            int CurrenWeaponIndex = (int)currentWeapon.weaponType;
+            CurrenWeaponIndex += SwapDirection;
+
+            if (CurrenWeaponIndex < 0)
+            {
+                CurrenWeaponIndex = (int)WeaponState.Total + CurrenWeaponIndex;
+            }
+            if (CurrenWeaponIndex >= (int)WeaponState.Total)
+            {
+                CurrenWeaponIndex = 0;
+            }
+            WeaponSwapAnimation(CurrenWeaponIndex);
+
+        }
+    }
+
+    private void WeaponSwapAnimation(int currentWeaponIndex)
+    {
+        foreach (var weapon in avilableWeapons)
+        {
+            weapon.gameObject.SetActive(false);
+        }
+        currentWeapon = avilableWeapons[currentWeaponIndex];
+        currentWeapon.gameObject.SetActive(true);
+    }
+
+
+    private void OnTriggerEnter(Collider other)
+    {
+        int CurrenWeaponIndex = (int)currentWeapon.weaponType;
+        if (CurrenWeaponIndex == (int)WeaponState.Melee)
+        {
+            return;
+        }
+        if (other.gameObject.layer == 10)
+        {
+            Destroy(other.gameObject);
+
+            currentWeapon.ammunition += 50;
+        }
     }
 }
