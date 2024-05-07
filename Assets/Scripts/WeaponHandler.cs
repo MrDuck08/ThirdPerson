@@ -7,7 +7,7 @@ public enum WeaponState
 {
     Melee = 0,
     Projectile = 1,
-    Hitscan = 3,
+    Hitscan = 2,
     Total
 }
 
@@ -50,11 +50,15 @@ public class WeaponHandler : MonoBehaviour
         int CurrenWeaponIndex = (int)currentWeapon.weaponType;
         if (CurrenWeaponIndex == (int)WeaponState.Projectile)
         {
-            Debug.Log("Projectile");
+            //Debug.Log("Projectile");
         }
         if (CurrenWeaponIndex == (int)WeaponState.Melee)
         {
-            Debug.Log("Melee");
+            //Debug.Log("Melee");
+        }
+        if (CurrenWeaponIndex == (int)WeaponState.Hitscan)
+        {
+            //Debug.Log("HitScan");
         }
     }
 

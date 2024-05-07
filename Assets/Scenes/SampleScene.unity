@@ -1250,6 +1250,9 @@ MonoBehaviour:
   enemyMask:
     serializedVersion: 2
     m_Bits: 0
+  Projectile: {fileID: 7442010182184394612, guid: c5bd414c2e645d7498338e8ba101efc6, type: 3}
+  x: 0.5
+  y: 0.5
 --- !u!1 &2122001719
 GameObject:
   m_ObjectHideFlags: 0
