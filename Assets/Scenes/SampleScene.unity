@@ -132,7 +132,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 120852310}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Weapons
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -169,7 +169,7 @@ GameObject:
   - component: {fileID: 135404045}
   - component: {fileID: 135404044}
   - component: {fileID: 135404046}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: HitScan
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -258,7 +258,7 @@ MonoBehaviour:
   weaponRange: 1337
   ignoreHitMask:
     serializedVersion: 2
-    m_Bits: 4
+    m_Bits: 68
   enemyMask:
     serializedVersion: 2
     m_Bits: 0
@@ -278,7 +278,7 @@ GameObject:
   - component: {fileID: 263072922}
   - component: {fileID: 263072921}
   - component: {fileID: 263072924}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -483,7 +483,7 @@ GameObject:
   m_Component:
   - component: {fileID: 551187886}
   - component: {fileID: 551187887}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Melle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -843,7 +843,7 @@ GameObject:
   - component: {fileID: 961330222}
   - component: {fileID: 961330224}
   - component: {fileID: 961330223}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Melle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -924,7 +924,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1123278674}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: GroundCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1050,7 +1050,7 @@ GameObject:
   - component: {fileID: 1383313843}
   - component: {fileID: 1383313842}
   - component: {fileID: 1383313845}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -1157,7 +1157,7 @@ GameObject:
   - component: {fileID: 1599730535}
   - component: {fileID: 1599730534}
   - component: {fileID: 1599730536}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Launcher
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1264,7 +1264,7 @@ GameObject:
   - component: {fileID: 2122001720}
   - component: {fileID: 2122001722}
   - component: {fileID: 2122001721}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Melle (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

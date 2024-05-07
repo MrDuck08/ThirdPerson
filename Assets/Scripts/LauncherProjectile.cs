@@ -12,21 +12,29 @@ public class LauncherProjectile : MonoBehaviour
 
     protected Vector3 finalDestination = Vector3.zero;
 
+    RaycastHit diveLocation;
+
+    bool diveBool = false;
+
     private void Update()
     {
-        Vector3 MoveVector = transform.forward;
+        if (!diveBool)
+        {
+            Vector3 MoveVector = transform.forward;
 
-        MoveVector.x += 1f;
+            MoveVector.x += 1f;
 
-        transform.position +=  aimDirection * Time.deltaTime * 1;
+            transform.position += aimDirection * 5 * Time.deltaTime;
 
-        //new Vector3(MoveVector.x, 1, 0)
-        //transform.position += aimDirection * movmentSpeed * Time.deltaTime;
-
-        //transform.position += new Vector3(1, 1, 0) * aimDirection * Time.deltaTime;
+            transform.position += new Vector3(0, 5, 0) * Time.deltaTime;
+        }
+        else
+        {
+            transform.position = Vector3.MoveTowards(transform.position, diveLocation.point, 100 * Time.deltaTime);
+        }
     }
 
-    public virtual void SpawnProjectile(Vector3 spawnPos, Vector3 finalDestination, Vector3 AimPosition)
+    public virtual void SpawnProjectile(Vector3 spawnPos, Vector3 finalDestination, Vector3 AimPosition, RaycastHit raycastHit)
     {
         spawnPosition = spawnPos;
         transform.position = spawnPosition;
@@ -34,5 +42,16 @@ public class LauncherProjectile : MonoBehaviour
         aimPoint = AimPosition;
         aimDirection = (aimPoint - spawnPosition).normalized;
         transform.LookAt(aimPoint);
+
+        StartCoroutine(DownShot(raycastHit));
+    }
+
+    IEnumerator DownShot(RaycastHit whereToGo)
+    {
+        yield return new WaitForSeconds(1);
+
+        diveLocation = whereToGo;
+
+        diveBool = true;
     }
 }
