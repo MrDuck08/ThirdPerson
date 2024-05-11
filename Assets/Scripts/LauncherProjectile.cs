@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class LauncherProjectile : MonoBehaviour
 {
+    #region Vectors
+
     protected Vector3 spawnPosition = Vector3.zero;
 
     protected Vector3 aimPoint = Vector3.zero;
@@ -12,9 +14,13 @@ public class LauncherProjectile : MonoBehaviour
 
     protected Vector3 finalDestination = Vector3.zero;
 
+    #endregion
+
     RaycastHit diveLocation;
 
     bool diveBool = false;
+
+    float lifeTime = 10f;
 
     private void Update()
     {
@@ -31,6 +37,12 @@ public class LauncherProjectile : MonoBehaviour
         else
         {
             transform.position = Vector3.MoveTowards(transform.position, diveLocation.point, 100 * Time.deltaTime);
+        }
+
+        lifeTime -= Time.deltaTime;
+        if(lifeTime <= 0)
+        {
+            Destroy(gameObject);
         }
     }
 
