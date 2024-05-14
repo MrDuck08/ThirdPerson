@@ -25,14 +25,17 @@ public class LauncherProjectile : MonoBehaviour
 
     int testInt = 3;
 
+    public GameObject ExplosionObject;
+
+    private void Start()
+    {
+        ExplosionObject.SetActive(false);
+    }
+
     private void Update()
     {
         if (!diveBool)
         {
-            Vector3 MoveVector = transform.forward;
-
-            MoveVector.x += 1f;
-
             transform.position += aimDirection * 5 * Time.deltaTime;
 
             transform.position += new Vector3(0, 5, 0) * Time.deltaTime;
@@ -40,6 +43,10 @@ public class LauncherProjectile : MonoBehaviour
         else
         {
             transform.position = Vector3.MoveTowards(transform.position, diveLocation.point, 100 * Time.deltaTime);
+            if (transform.position == diveLocation.point)
+            {
+                StartCoroutine(ExplodeRoutine());
+            }
         }
 
         lifeTime -= Time.deltaTime;
@@ -47,6 +54,15 @@ public class LauncherProjectile : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    IEnumerator ExplodeRoutine()
+    {
+        ExplosionObject.SetActive(true);
+
+        yield return new WaitForSeconds(0.2f);
+
+        Destroy(gameObject);
     }
 
     public virtual void SpawnProjectile(Vector3 spawnPos, Vector3 finalDestination, Vector3 AimPosition, RaycastHit raycastHit)
@@ -72,17 +88,17 @@ public class LauncherProjectile : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.layer == testInt)
-        {
-            Debug.Log("GROUND");
-        }
-        if (other.gameObject.layer == ~2)
-        {
-            Debug.Log("WORK 1");
-            if(other.gameObject.layer == ~6)
-            {
-                Debug.Log("WORK 2");
-            }
-        }
+        //if(other.gameObject.layer == testInt)
+        //{
+        //    Debug.Log("GROUND");
+        //}
+        //if (other.gameObject.layer == ~2)
+        //{
+        //    Debug.Log("WORK 1");
+        //    if(other.gameObject.layer == ~6)
+        //    {
+        //        Debug.Log("WORK 2");
+        //    }
+        //}
     }
 }
