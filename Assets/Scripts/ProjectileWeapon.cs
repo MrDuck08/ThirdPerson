@@ -26,21 +26,29 @@ public class ProjectileWeapon : Weapon
             return true;
         }
 
-        while (true)
+        Ray WeaponRay = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
+        RaycastHit hit = new RaycastHit();
+
+        if (Physics.Raycast(WeaponRay, out hit, Mathf.Infinity, ~ignoreHitMask))
         {
-
-            ShotgunProjectile SpawnedProjectile = Instantiate(shotgunProjectile);
-
-            SpawnedProjectile.SpawnProjectile(new Vector3(transform.position.x, transform.position.y, transform.position.z), Camera.main.transform.forward.normalized * 10000.0f + Camera.main.transform.position);
-
-            howManyMorePellets++;
-
-            if (howManyMorePellets == 70)
+            while (true)
             {
-                playerMovment.ShotgunPushBack(Camera.main.transform.forward.normalized + Camera.main.transform.position);
-                howManyMorePellets = 0;
-                return false;
+
+                ShotgunProjectile SpawnedProjectile = Instantiate(shotgunProjectile);
+
+                SpawnedProjectile.SpawnProjectile(new Vector3(transform.position.x, transform.position.y, transform.position.z), Camera.main.transform.forward.normalized * hit.distance + Camera.main.transform.position, hit);
+
+                howManyMorePellets++;
+
+                if (howManyMorePellets == 70)
+                {
+                    //playerMovment.ShotgunPushBack(Camera.main.transform.forward.normalized);
+
+                    howManyMorePellets = 0;
+                    return false;
+                }
             }
         }
+        return false;
     }
 }

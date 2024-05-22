@@ -22,6 +22,8 @@ public class PlayerMovment : MonoBehaviour
 
     public float ShotgunKnockbackPower = 10;
 
+    bool knockBack = false;
+
     #endregion
 
     #region Gravity
@@ -67,7 +69,19 @@ public class PlayerMovment : MonoBehaviour
 
         velocity.y += gravity * Time.deltaTime;
 
-        rb.velocity = Movment * moveSpeed + velocity;
+        if(Input.GetKey(KeyCode.LeftShift))
+        {
+            moveSpeed = 16;
+        }
+        else
+        {
+            moveSpeed = 8;
+        }
+
+        if(!knockBack)
+        {
+            rb.velocity = Movment * moveSpeed + velocity;
+        }
     }
 
     void OnMove(InputValue value)
@@ -75,11 +89,29 @@ public class PlayerMovment : MonoBehaviour
         movementInput = value.Get<Vector3>();
     }
 
-    public void ShotgunPushBack(Vector3 whereToshot)
-    {
-        //transform.forward -= Camera.main.transform.forward.normalized * ShotgunKnockbackPower;
-        //rb.velocity -= Camera.main.transform.forward.normalized * ShotgunKnockbackPower;
-        //rb.velocity += whereToshot * ShotgunKnockbackPower;
-        //transform.position += -whereToshot * ShotgunKnockbackPower * Time.deltaTime;
-    }
+    //public void ShotgunPushBack(Vector3 whereToshotBack)
+    //{
+    //    knockBack = true;
+
+    //    //rb.velocity = -whereToshotBack * ShotgunKnockbackPower;
+
+    //    //transform.position += -whereToshotBack * ShotgunKnockbackPower * Time.deltaTime;
+
+    //    knockBack = false;
+
+    //    StartCoroutine(ShotgunKnockBackRoutine(whereToshotBack));
+    //}
+
+    //IEnumerator ShotgunKnockBackRoutine(Vector3 whereToshotBack)
+    //{
+    //    knockBack = true;
+
+    //    yield return new WaitForSeconds(0.3f);
+
+    //    //rb.velocity = -whereToshotBack * ShotgunKnockbackPower;
+
+    //    transform.position += -whereToshotBack * ShotgunKnockbackPower * Time.deltaTime;
+
+    //    knockBack = false;
+    //}
 }
