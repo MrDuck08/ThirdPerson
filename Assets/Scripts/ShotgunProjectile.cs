@@ -11,9 +11,14 @@ public class ShotgunProjectile : MonoBehaviour
 
     protected Vector3 aimDirection = Vector3.zero;
 
+    protected Vector3 whereToAim = Vector3.zero;
+
+    public float randomDirection1 = 15f;
+    public float randomDirection2 = -15f;
+
     public void Update()
     {
-        transform.position += transform.forward * 5 * Time.deltaTime;
+        transform.position += transform.forward * 50 * Time.deltaTime;
     }
 
     public virtual void SpawnProjectile(Vector3 spawnPos, Vector3 AimPosition)
@@ -23,8 +28,12 @@ public class ShotgunProjectile : MonoBehaviour
 
         aimPoint = AimPosition;
         aimDirection = (aimPoint - spawnPosition).normalized;
-        transform.LookAt(aimPoint);
 
-        transform.rotation = Quaternion.Euler(Random.Range(15, -15), Random.Range(15, -15), 0);
+        Vector3 RandomRotation = new Vector3(Random.Range(randomDirection1, randomDirection2), Random.Range(randomDirection1, randomDirection2), Random.Range(randomDirection1, randomDirection2));
+
+
+        whereToAim = aimPoint + RandomRotation;
+
+        transform.LookAt(whereToAim);
     }
 }
