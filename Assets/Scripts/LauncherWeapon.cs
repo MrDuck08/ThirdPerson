@@ -21,6 +21,7 @@ public class LauncherWeapon : Weapon
 
         if (Physics.Raycast(WeaponRay, out hit, weaponRange, ~ignoreHitMask))
         {
+
             LauncherProjectile SpawnedProjectile = Instantiate(Projectile);
 
             SpawnedProjectile.SpawnProjectile(new Vector3(transform.position.x + x, transform.position.y + y, transform.position.z),   hit.transform.position,   Camera.main.transform.forward.normalized * 10000.0f + Camera.main.transform.position, hit);

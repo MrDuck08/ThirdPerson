@@ -11,6 +11,9 @@ public class PlayerCamera : MonoBehaviour
     float xRotation = 0f;
     float yRotation = 0f;
 
+    public float yClamp = 0f;
+    public float zClamp = 30f;
+
 
     void Start()
     {       
@@ -25,7 +28,7 @@ public class PlayerCamera : MonoBehaviour
         xRotation -= MouseY;
         yRotation += MouseX;
 
-        xRotation = Mathf.Clamp(xRotation, 0f, 30);
+        xRotation = Mathf.Clamp(xRotation, yClamp, zClamp);
 
         playerBody.rotation = Quaternion.Euler(0f, yRotation, 0f);
         transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
