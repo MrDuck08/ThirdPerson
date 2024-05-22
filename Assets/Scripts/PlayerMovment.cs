@@ -20,6 +20,8 @@ public class PlayerMovment : MonoBehaviour
     public float moveSpeed = 8;
     public float jumpStrengh = 3;
 
+    public float ShotgunKnockbackPower = 10;
+
     #endregion
 
     #region Gravity
@@ -71,5 +73,13 @@ public class PlayerMovment : MonoBehaviour
     void OnMove(InputValue value)
     {
         movementInput = value.Get<Vector3>();
+    }
+
+    public void ShotgunPushBack(Vector3 whereToshot)
+    {
+        //transform.forward -= Camera.main.transform.forward.normalized * ShotgunKnockbackPower;
+        //rb.velocity -= Camera.main.transform.forward.normalized * ShotgunKnockbackPower;
+        //rb.velocity += whereToshot * ShotgunKnockbackPower;
+        //transform.position += -whereToshot * ShotgunKnockbackPower * Time.deltaTime;
     }
 }

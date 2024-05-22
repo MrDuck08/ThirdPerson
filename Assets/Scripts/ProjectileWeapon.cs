@@ -8,6 +8,17 @@ public class ProjectileWeapon : Weapon
 {
     public ShotgunProjectile shotgunProjectile;
 
+    int howManyMorePellets = 0;
+
+    PlayerMovment playerMovment;
+
+    public override void Start()
+    {
+        base.Start();
+
+        playerMovment = FindObjectOfType<PlayerMovment>();
+    }
+
     public override bool Fire()
     {
         if (base.Fire() == false)
@@ -15,10 +26,21 @@ public class ProjectileWeapon : Weapon
             return true;
         }
 
-        ShotgunProjectile SpawnedProjectile = Instantiate(shotgunProjectile);
+        while (true)
+        {
 
-        SpawnedProjectile.SpawnProjectile(new Vector3(transform.position.x, transform.position.y, transform.position.z), Camera.main.transform.forward.normalized * 10000.0f + Camera.main.transform.position);
+            ShotgunProjectile SpawnedProjectile = Instantiate(shotgunProjectile);
 
-        return false;
+            SpawnedProjectile.SpawnProjectile(new Vector3(transform.position.x, transform.position.y, transform.position.z), Camera.main.transform.forward.normalized * 10000.0f + Camera.main.transform.position);
+
+            howManyMorePellets++;
+
+            if (howManyMorePellets == 70)
+            {
+                playerMovment.ShotgunPushBack(Camera.main.transform.forward.normalized + Camera.main.transform.position);
+                howManyMorePellets = 0;
+                return false;
+            }
+        }
     }
 }
