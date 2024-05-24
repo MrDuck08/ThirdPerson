@@ -47,10 +47,10 @@ public class Enemy : MonoBehaviour
         {
             velocity.y = -1.0f;
         }
-        if (!knockBack)
-        {
-            velocity.y += Mathf.Sqrt(explosionKnockbackStrenght * -2 * gravity);
-        }
+        //if (knockBack)
+        //{
+        //    velocity.y += Mathf.Sqrt(explosionKnockbackStrenght * -2 * gravity);
+        //}
 
         velocity.y += gravity * Time.deltaTime;
 
@@ -65,6 +65,8 @@ public class Enemy : MonoBehaviour
         if (other.gameObject.layer == 7)
         {
             knockBack = true;
+
+            velocity.y += Mathf.Sqrt(explosionKnockbackStrenght * -2 * gravity);
 
             rbEnemy.velocity = velocity;
 
