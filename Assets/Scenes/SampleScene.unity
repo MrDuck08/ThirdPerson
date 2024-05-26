@@ -1010,6 +1010,54 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2118286742}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1724015545
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1724015547}
+  - component: {fileID: 1724015546}
+  m_Layer: 0
+  m_Name: DualKnifesScripy
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1724015546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1724015545}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 424c4ba92ec442e42a53ddb721a84c45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MeleeHitbox:
+  - {fileID: 11400000, guid: dbd256b98b3cb57439303dd77be62d4a, type: 2}
+  - {fileID: 11400000, guid: e953ea62a90009648882961be94e3d15, type: 2}
+  - {fileID: 11400000, guid: 0f1ac085e80be6a47b81f2140fac2874, type: 2}
+--- !u!4 &1724015547
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1724015545}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1778599060
 GameObject:
   m_ObjectHideFlags: 0
@@ -1594,7 +1642,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5974049034470754173, guid: 00e65ec21e1715047aa8b8a741fb2d65, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6169798081757003147, guid: 00e65ec21e1715047aa8b8a741fb2d65, type: 3}
       propertyPath: ammunition
@@ -1659,3 +1707,4 @@ SceneRoots:
   - {fileID: 1371256149}
   - {fileID: 1469940944}
   - {fileID: 2118286742}
+  - {fileID: 1724015547}

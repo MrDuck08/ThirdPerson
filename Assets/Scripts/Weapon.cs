@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Weapon : MonoBehaviour
@@ -29,5 +30,15 @@ public class Weapon : MonoBehaviour
         ammunition--;
         // 4 return to HitScanWeapon
         return true;
+    }
+
+    public virtual void Update()
+    {
+        
+    }
+
+    public virtual IEnumerator Ienumirator(float howLongWait)
+    {
+        yield return new WaitForSeconds(howLongWait);
     }
 }

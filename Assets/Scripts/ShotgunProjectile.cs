@@ -49,4 +49,16 @@ public class ShotgunProjectile : MonoBehaviour
 
         Destroy(gameObject);
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.layer == 6 || other.gameObject.layer == 8)
+        {
+
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 }
