@@ -11,7 +11,7 @@ public class DualKnifes : MonoBehaviour
     int onWhatCombo = -1;
     int maxCombo;
 
-    float comboTime = 1;
+    float comboTime = 0.5f;
     float currentComboTime;
 
     bool meleeAttackPause;
@@ -44,6 +44,7 @@ public class DualKnifes : MonoBehaviour
             spawnedHitbox.transform.position = whereToSpawn.position + whereToSpawn.forward * 1.11f;
             spawnedHitbox.gameObject.transform.rotation = whereToSpawn.rotation;
 
+            StartCoroutine(DestroyAttacksRoutine(spawnedHitbox));
 
             currentComboTime = comboTime;
             comboTimerStart = true;
@@ -68,9 +69,6 @@ public class DualKnifes : MonoBehaviour
             }
         }
 
-
-
-
     }
 
     IEnumerator NextAttackRoutien()
@@ -81,5 +79,13 @@ public class DualKnifes : MonoBehaviour
 
 
         meleeAttackPause = false;
+    }
+
+    IEnumerator DestroyAttacksRoutine(GameObject objectToDestroy)
+    {
+
+        yield return new WaitForSeconds(0.5f);
+
+        Destroy(objectToDestroy);
     }
 }

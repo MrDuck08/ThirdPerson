@@ -10,6 +10,15 @@ public class Melee : Weapon
 
     DualKnifes dualKnifes;
 
+    PlayerMovment playerMovment;
+
+    public override void Start()
+    {
+        base.Start();
+
+        playerMovment = FindObjectOfType<PlayerMovment>();
+    }
+
     public override bool Fire()
     {
         if (base.Fire() == false)
@@ -17,13 +26,11 @@ public class Melee : Weapon
             return true;
         }
 
-
-
-
         dualKnifes = FindFirstObjectByType<DualKnifes>();
         dualKnifes.DualKnifeAttack(playerTransform);
 
-
+        playerMovment.meleeAtackTimeLeft = playerMovment.meleeAtackTime;
+        playerMovment.meleeAtack = true;
 
         return false;
     }

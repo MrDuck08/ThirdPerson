@@ -15,8 +15,6 @@ public class WeaponHandler : MonoBehaviour
 {
     public PlayerMovment myPlayerMovment = null;
 
-    [SerializeField] GameObject[] meleeWeapon;
-
     public Weapon[] avilableWeapons = new Weapon[(int)WeaponState.Total];
     public Weapon currentWeapon = null;
 

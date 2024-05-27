@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4688666196192224937}
   - component: {fileID: 7010966459885924686}
   - component: {fileID: 3923135029017539731}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Hitbox1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28,8 +28,8 @@ Transform:
   m_GameObject: {fileID: 4550747846351932030}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.38, z: 1.11}
-  m_LocalScale: {x: 0.14448144, y: 1.4401025, z: 1}
+  m_LocalPosition: {x: 0, y: 1.0955, z: 1.11}
+  m_LocalScale: {x: 0.14448144, y: 2.8711405, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -99,7 +99,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3

@@ -5,8 +5,8 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
 
-    float health = 5f;
-    float explosionKnockbackStrenght = 2;
+    float health = 100f;
+    public float explosionKnockbackStrenght = 2;
 
     Rigidbody rbEnemy;
 
@@ -47,10 +47,6 @@ public class Enemy : MonoBehaviour
         {
             velocity.y = -1.0f;
         }
-        //if (knockBack)
-        //{
-        //    velocity.y += Mathf.Sqrt(explosionKnockbackStrenght * -2 * gravity);
-        //}
 
         velocity.y += gravity * Time.deltaTime;
 
@@ -64,13 +60,34 @@ public class Enemy : MonoBehaviour
     {
         if (other.gameObject.layer == 7)
         {
-            knockBack = true;
-
             velocity.y += Mathf.Sqrt(explosionKnockbackStrenght * -2 * gravity);
 
-            rbEnemy.velocity = velocity;
+            health -= 25;
 
-            knockBack = false; 
+            rbEnemy.velocity = velocity;
         }
+
+        if(other.gameObject.layer == 9)
+        {
+            knockBack = true;
+
+            rbEnemy.velocity = Vector3.zero + other.gameObject.transform.forward * 20;
+
+            health -= 20;
+
+            StartCoroutine(meleeKnockbackRoutine());
+        }
+
+        if (other.gameObject.layer == 8)
+        {
+            health -= 1;
+        }
+    }
+
+    IEnumerator meleeKnockbackRoutine()
+    {
+        yield return new WaitForSeconds(0.1f);
+
+        knockBack = false;
     }
 }

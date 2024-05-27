@@ -9,6 +9,8 @@ public class PlayerMovment : MonoBehaviour
 {
     #region Movment
 
+    [Header("Movment")]
+
     Rigidbody rb;
 
     Vector3 movementInput;
@@ -28,6 +30,8 @@ public class PlayerMovment : MonoBehaviour
 
     #region Gravity
 
+    [Header("Gravity")]
+
     public bool isGrounded;
 
     public Transform groundCheck;
@@ -41,13 +45,23 @@ public class PlayerMovment : MonoBehaviour
 
     #endregion
 
-    // Start is called before the first frame update
+    #region melee
+
+    [Header("Melee")]
+
+    public bool meleeAtack = false;
+
+    public float meleeAtackTime = 0.1f;
+    public float meleeAtackTimeLeft;
+
+    #endregion
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
@@ -82,36 +96,25 @@ public class PlayerMovment : MonoBehaviour
         {
             rb.velocity = Movment * moveSpeed + velocity;
         }
+
+        if (meleeAtack)
+        {
+            meleeAtackTimeLeft -= Time.deltaTime;
+
+            knockBack = true;
+
+            rb.velocity = Vector3.zero + gameObject.transform.forward * 20;
+
+            if (meleeAtackTimeLeft <= 0)
+            {
+                meleeAtack = false;
+                knockBack = false;
+            }
+        }
     }
 
     void OnMove(InputValue value)
     {
         movementInput = value.Get<Vector3>();
     }
-
-    //public void ShotgunPushBack(Vector3 whereToshotBack)
-    //{
-    //    knockBack = true;
-
-    //    //rb.velocity = -whereToshotBack * ShotgunKnockbackPower;
-
-    //    //transform.position += -whereToshotBack * ShotgunKnockbackPower * Time.deltaTime;
-
-    //    knockBack = false;
-
-    //    StartCoroutine(ShotgunKnockBackRoutine(whereToshotBack));
-    //}
-
-    //IEnumerator ShotgunKnockBackRoutine(Vector3 whereToshotBack)
-    //{
-    //    knockBack = true;
-
-    //    yield return new WaitForSeconds(0.3f);
-
-    //    //rb.velocity = -whereToshotBack * ShotgunKnockbackPower;
-
-    //    transform.position += -whereToshotBack * ShotgunKnockbackPower * Time.deltaTime;
-
-    //    knockBack = false;
-    //}
 }
