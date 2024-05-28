@@ -56,6 +56,8 @@ public class PlayerMovment : MonoBehaviour
 
     #endregion
 
+    float health = 100;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -64,6 +66,11 @@ public class PlayerMovment : MonoBehaviour
 
     void Update()
     {
+        if(health < 0)
+        {
+            Debug.Log("DIE");
+            Time.timeScale = 0;
+        }
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
         if (isGrounded && velocity.y < 0)
@@ -71,7 +78,7 @@ public class PlayerMovment : MonoBehaviour
             velocity.y = -1.0f;
         }
 
-        if(isGrounded && Input.GetKeyDown(KeyCode.Space))
+        if (isGrounded && Input.GetKeyDown(KeyCode.Space))
         {
             velocity.y += Mathf.Sqrt(jumpStrengh * -2 * gravity);
         }
@@ -83,7 +90,7 @@ public class PlayerMovment : MonoBehaviour
 
         velocity.y += gravity * Time.deltaTime;
 
-        if(Input.GetKey(KeyCode.LeftShift))
+        if (Input.GetKey(KeyCode.LeftShift))
         {
             moveSpeed = 16;
         }
@@ -92,10 +99,11 @@ public class PlayerMovment : MonoBehaviour
             moveSpeed = 8;
         }
 
-        if(!knockBack)
+        if (knockBack == false)
         {
             rb.velocity = Movment * moveSpeed + velocity;
         }
+
 
         if (meleeAtack)
         {
@@ -116,5 +124,13 @@ public class PlayerMovment : MonoBehaviour
     void OnMove(InputValue value)
     {
         movementInput = value.Get<Vector3>();
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.layer == 7)
+        {
+            health -= 10;
+        }
     }
 }

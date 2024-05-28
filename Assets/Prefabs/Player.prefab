@@ -293,7 +293,7 @@ MonoBehaviour:
   weaponRange: 1337
   ignoreHitMask:
     serializedVersion: 2
-    m_Bits: 1476
+    m_Bits: 3524
   enemyMask:
     serializedVersion: 2
     m_Bits: 0
@@ -482,7 +482,7 @@ MonoBehaviour:
   weaponRange: 1337
   ignoreHitMask:
     serializedVersion: 2
-    m_Bits: 452
+    m_Bits: 2500
   enemyMask:
     serializedVersion: 2
     m_Bits: 0

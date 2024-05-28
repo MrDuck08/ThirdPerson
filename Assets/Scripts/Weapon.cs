@@ -34,7 +34,8 @@ public class Weapon : MonoBehaviour
 
     public virtual void Update()
     {
-        
+
+
     }
 
     public virtual IEnumerator Ienumirator(float howLongWait)

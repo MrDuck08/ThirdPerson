@@ -12,12 +12,30 @@ public class ProjectileWeapon : Weapon
 
     PlayerMovment playerMovment;
 
+    public override void Update()
+    {
+      
+        base.Update();
+     
+
+        Ray WeaponRay = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
+        RaycastHit hit = new RaycastHit();
+
+        transform.LookAt(hit.point);
+        Debug.Log("WORK");
+
+    }
+
     public override void Start()
     {
         base.Start();
 
         playerMovment = FindObjectOfType<PlayerMovment>();
+   
+
     }
+
+
 
     public override bool Fire()
     {
@@ -28,7 +46,7 @@ public class ProjectileWeapon : Weapon
 
         Ray WeaponRay = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
         RaycastHit hit = new RaycastHit();
-
+        
         if (Physics.Raycast(WeaponRay, out hit, Mathf.Infinity, ~ignoreHitMask))
         {
             while (true)
