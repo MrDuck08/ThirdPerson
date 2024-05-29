@@ -6,6 +6,8 @@ public class Enemy : MonoBehaviour
 {
     #region health & Damage
 
+    [Header("health")]
+
     float health = 100f;
     float damageBreakTime = 0.2f;
 
@@ -24,6 +26,8 @@ public class Enemy : MonoBehaviour
 
     #region Gravity
 
+    [Header("Gravity")]
+
     public bool isGrounded;
 
     public Transform groundCheck;
@@ -38,6 +42,8 @@ public class Enemy : MonoBehaviour
     #endregion
 
     #region Shooting
+
+    [Header("Shooting")]
 
     public MachineGunBullet machineGunBullet;
 
@@ -97,6 +103,8 @@ public class Enemy : MonoBehaviour
             playerMovment = FindObjectOfType<PlayerMovment>();
             Vector3 playerTransform = playerMovment.transform.position;
             transform.position = Vector3.MoveTowards(transform.position, playerTransform, 5 * Time.deltaTime);
+
+            transform.LookAt(playerMovment.transform.position);
         }
 
         #endregion
@@ -125,8 +133,6 @@ public class Enemy : MonoBehaviour
             stop = false;
         }
 
-        transform.LookAt(playerMovment.transform.position);
-
         #endregion
     }
 
@@ -136,7 +142,7 @@ public class Enemy : MonoBehaviour
         {
             velocity.y += Mathf.Sqrt(explosionKnockbackStrenght * -2 * gravity);
 
-            health -= 25;
+            health -= 0;
 
             StartCoroutine(TakeDamageStopRoutine(damageBreakTime));
             rbEnemy.velocity = velocity;
@@ -183,8 +189,6 @@ public class Enemy : MonoBehaviour
 
     IEnumerator ShotCooldownRoutine()
     {
-
-
         yield return new WaitForSeconds(shootCooldown);
 
         MachineGunBullet spawnProjectile = Instantiate(machineGunBullet);

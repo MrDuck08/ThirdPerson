@@ -31,8 +31,6 @@ public class ProjectileWeapon : Weapon
         base.Start();
 
         playerMovment = FindObjectOfType<PlayerMovment>();
-   
-
     }
 
 

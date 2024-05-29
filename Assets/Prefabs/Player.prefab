@@ -203,7 +203,7 @@ GameObject:
   - component: {fileID: 9212304213168079773}
   - component: {fileID: 7337660246962977025}
   - component: {fileID: 880273805843291500}
-  - component: {fileID: 1086392059151741056}
+  - component: {fileID: 2923558594547747826}
   m_Layer: 6
   m_Name: Projectile
   m_TagString: Untagged
@@ -276,7 +276,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &1086392059151741056
+--- !u!114 &2923558594547747826
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -700,7 +700,7 @@ MonoBehaviour:
   myPlayerMovment: {fileID: 6704581138831740870}
   avilableWeapons:
   - {fileID: 6202297545621093668}
-  - {fileID: 1086392059151741056}
+  - {fileID: 2923558594547747826}
   - {fileID: 6169798081757003147}
   currentWeapon: {fileID: 6202297545621093668}
 --- !u!1 &5974049034470754173

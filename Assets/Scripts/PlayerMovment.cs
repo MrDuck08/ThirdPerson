@@ -116,7 +116,6 @@ public class PlayerMovment : MonoBehaviour
             if (meleeAtackTimeLeft <= 0)
             {
                 meleeAtack = false;
-                knockBack = false;
             }
         }
     }
