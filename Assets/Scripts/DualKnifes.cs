@@ -8,7 +8,7 @@ public class DualKnifes : MonoBehaviour
     public List<MelleHitbox> MeleeHitbox = new List<MelleHitbox>();
 
     float comboDropTimer = 1f;
-    int onWhatCombo = -1;
+    public int onWhatCombo = -1;
     int maxCombo;
 
     float comboTime = 0.5f;

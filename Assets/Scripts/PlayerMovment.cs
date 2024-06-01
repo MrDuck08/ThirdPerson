@@ -56,7 +56,11 @@ public class PlayerMovment : MonoBehaviour
 
     #endregion
 
+    public LayerMask ignoreLayer;
+
     float health = 100;
+
+    public float howlongStill = -1f;
 
     void Start()
     {
@@ -105,6 +109,7 @@ public class PlayerMovment : MonoBehaviour
         }
 
 
+
         if (meleeAtack)
         {
             meleeAtackTimeLeft -= Time.deltaTime;
@@ -115,9 +120,24 @@ public class PlayerMovment : MonoBehaviour
 
             if (meleeAtackTimeLeft <= 0)
             {
+                rb.velocity = Vector3.zero;
+            }
+            if(meleeAtackTimeLeft <= howlongStill)
+            {
                 meleeAtack = false;
+                knockBack = false;
             }
         }
+
+        Ray WeaponRay = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
+        RaycastHit hit = new RaycastHit();
+
+        if (Physics.Raycast(WeaponRay, out hit, Mathf.Infinity, ~ignoreLayer))
+        {
+
+            gameObject.transform.GetChild(2).gameObject.transform.GetChild(1).gameObject.transform.LookAt(hit.point);
+        }
+
     }
 
     void OnMove(InputValue value)

@@ -1007,6 +1007,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: dbd256b98b3cb57439303dd77be62d4a, type: 2}
   - {fileID: 11400000, guid: e953ea62a90009648882961be94e3d15, type: 2}
   - {fileID: 11400000, guid: 0f1ac085e80be6a47b81f2140fac2874, type: 2}
+  onWhatCombo: -1
 --- !u!4 &1724015547
 Transform:
   m_ObjectHideFlags: 0

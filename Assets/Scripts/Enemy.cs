@@ -53,7 +53,11 @@ public class Enemy : MonoBehaviour
     float damagePauseCurrentTime;
 
     public float maxRange = 7;
-    public float shootCooldown = 0.1f;
+
+    public float shootCooldownMaxTime = 0.1f;
+    float shoootCooldownLeft;
+
+    bool startShootCooldown;
 
     #endregion
 
@@ -98,13 +102,18 @@ public class Enemy : MonoBehaviour
             rbEnemy.velocity = velocity;
         }
 
-        if(!takeDamage && !inTheAir && !stop)
+        if(!takeDamage && !inTheAir)
         {
-            playerMovment = FindObjectOfType<PlayerMovment>();
-            Vector3 playerTransform = playerMovment.transform.position;
-            transform.position = Vector3.MoveTowards(transform.position, playerTransform, 5 * Time.deltaTime);
+            if (!stop)
+            {
+                playerMovment = FindObjectOfType<PlayerMovment>();
+                Vector3 playerTransform = playerMovment.transform.position;
+                transform.position = Vector3.MoveTowards(transform.position, playerTransform, 5 * Time.deltaTime);
+            }
 
             transform.LookAt(playerMovment.transform.position);
+
+            bulletSpawner.transform.LookAt(playerMovment.transform.position);
         }
 
         #endregion
@@ -113,26 +122,31 @@ public class Enemy : MonoBehaviour
 
         float DistanceToPlayer = Vector3.Distance(playerMovment.transform.position, transform.position);
 
-        if(DistanceToPlayer < maxRange)
+        if(DistanceToPlayer < maxRange && !takeDamage && !inTheAir)
         {
            stop = true;
 
-           damagePauseCurrentTime -= Time.deltaTime;
+            startShootCooldown = true;
 
-           bulletSpawner.transform.LookAt(playerMovment.transform.position);
+           //damagePauseCurrentTime -= Time.deltaTime;
 
-           if (damagePauseCurrentTime <= 0)
-           {
-                MachineGunBullet spawnProjectile = Instantiate(machineGunBullet);
-                spawnProjectile.SpawnProjectile(bulletSpawner.transform.position, playerMovment.transform.position);
-           }            
+
+           //if (damagePauseCurrentTime <= 0)
+           //{
+           //     MachineGunBullet spawnProjectile = Instantiate(machineGunBullet);
+           //     spawnProjectile.SpawnProjectile(bulletSpawner.transform.position, playerMovment.transform.position);
+           //}            
         }
         else
         {
-            damagePauseCurrentTime = 0;
+            startShootCooldown = false;
+
+            //damagePauseCurrentTime = 0;
             stop = false;
         }
 
+
+        ShotCooldown();
         #endregion
     }
 
@@ -173,7 +187,12 @@ public class Enemy : MonoBehaviour
 
     IEnumerator meleeKnockbackRoutine()
     {
+
         yield return new WaitForSeconds(0.1f);
+
+        rbEnemy.velocity = Vector3.zero;
+
+        yield return new WaitForSeconds(0.3f);
 
         knockBack = false;
     }
@@ -189,7 +208,7 @@ public class Enemy : MonoBehaviour
 
     IEnumerator ShotCooldownRoutine()
     {
-        yield return new WaitForSeconds(shootCooldown);
+        yield return new WaitForSeconds(shootCooldownMaxTime);
 
         MachineGunBullet spawnProjectile = Instantiate(machineGunBullet);
         spawnProjectile.SpawnProjectile(bulletSpawner.transform.position, playerMovment.transform.position);
@@ -198,13 +217,19 @@ public class Enemy : MonoBehaviour
     public void ShotCooldown()
     {
 
-        while(damagePauseCurrentTime <= 0)
+        if (startShootCooldown)
         {
+            shoootCooldownLeft -= Time.deltaTime;
 
-            new WaitForSeconds(shootCooldown);
+            if (shoootCooldownLeft <= 0)
+            {
+                startShootCooldown = false;
 
+                MachineGunBullet spawnProjectile = Instantiate(machineGunBullet);
+                spawnProjectile.SpawnProjectile(bulletSpawner.transform.position, playerMovment.transform.position);
 
-
+                shoootCooldownLeft = shootCooldownMaxTime;
+            }
         }
 
     }

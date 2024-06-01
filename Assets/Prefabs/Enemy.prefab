@@ -133,7 +133,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 80
@@ -150,7 +150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08b49c67419cd9a4d85c051e5f4883bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  explosionKnockbackStrenght: 4
+  explosionKnockbackStrenght: 1
   isGrounded: 0
   groundCheck: {fileID: 4272588939298947405}
   groundDistance: 0.4
@@ -160,6 +160,8 @@ MonoBehaviour:
     m_Bits: 8
   machineGunBullet: {fileID: -6039180586571607438, guid: f1368891a981be74ea7c33d77b58d61f, type: 3}
   bulletSpawner: {fileID: 5948398375598534789}
+  maxRange: 7
+  shootCooldownMaxTime: 0.3
 --- !u!1 &3462003710502569388
 GameObject:
   m_ObjectHideFlags: 0

@@ -27,11 +27,15 @@ public class Melee : Weapon
         }
 
         dualKnifes = FindFirstObjectByType<DualKnifes>();
-        dualKnifes.DualKnifeAttack(playerTransform);
 
-        playerMovment.meleeAtackTimeLeft = playerMovment.meleeAtackTime;
-        playerMovment.meleeAtack = true;
+        if(dualKnifes.onWhatCombo <= 1)
+        {
+            dualKnifes.DualKnifeAttack(playerTransform);
 
+            playerMovment.meleeAtackTimeLeft = playerMovment.meleeAtackTime;
+            playerMovment.meleeAtack = true;
+
+        }
         return false;
     }
 }
