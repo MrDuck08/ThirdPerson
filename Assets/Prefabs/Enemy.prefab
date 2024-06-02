@@ -160,8 +160,10 @@ MonoBehaviour:
     m_Bits: 8
   machineGunBullet: {fileID: -6039180586571607438, guid: f1368891a981be74ea7c33d77b58d61f, type: 3}
   bulletSpawner: {fileID: 5948398375598534789}
-  maxRange: 7
+  maxShootRange: 7
   shootCooldownMaxTime: 0.3
+  bulletSpeed: 20
+  maxWalkDistance: 30
 --- !u!1 &3462003710502569388
 GameObject:
   m_ObjectHideFlags: 0

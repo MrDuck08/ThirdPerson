@@ -188,6 +188,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfd9b0391df56234ca378674bce7cbf4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  options: {fileID: 11400000, guid: 82899a57bdfdad146948be3f5302c406, type: 2}
   mouseSensitivity: 400
   playerBody: {fileID: 4733328569251172003}
   yClamp: -10
@@ -505,6 +506,7 @@ GameObject:
   - component: {fileID: 6704581138831740870}
   - component: {fileID: 1990587886911906444}
   - component: {fileID: 8300558966117729401}
+  - component: {fileID: 4939405946279191105}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -707,6 +709,19 @@ MonoBehaviour:
   - {fileID: 2923558594547747826}
   - {fileID: 6169798081757003147}
   currentWeapon: {fileID: 6202297545621093668}
+--- !u!114 &4939405946279191105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5741906845947487651}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d287b95895fb2fb479a21d5904ae976e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 100
 --- !u!1 &5974049034470754173
 GameObject:
   m_ObjectHideFlags: 0

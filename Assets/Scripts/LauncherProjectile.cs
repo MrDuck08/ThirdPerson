@@ -20,6 +20,7 @@ public class LauncherProjectile : MonoBehaviour
 
     bool diveBool = false;
     bool hitSomething;
+    bool die = false;
 
     float lifeTime = 10f;
 
@@ -34,13 +35,13 @@ public class LauncherProjectile : MonoBehaviour
 
     private void Update()
     {
-        if (!diveBool)
+        if (!diveBool && !die)
         {
             transform.position += aimDirection * 5 * Time.deltaTime;
 
             transform.position += new Vector3(0, 5, 0) * Time.deltaTime;
         }
-        else
+        if(diveBool && !die)
         {
             transform.position = Vector3.MoveTowards(transform.position, diveLocation.point, 100 * Time.deltaTime);
             if (transform.position == diveLocation.point)
@@ -88,17 +89,15 @@ public class LauncherProjectile : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        //if(other.gameObject.layer == testInt)
-        //{
-        //    Debug.Log("GROUND");
-        //}
-        //if (other.gameObject.layer == ~2)
-        //{
-        //    Debug.Log("WORK 1");
-        //    if(other.gameObject.layer == ~6)
-        //    {
-        //        Debug.Log("WORK 2");
-        //    }
-        //}
+        if ( other.gameObject.layer == 2 || other.gameObject.layer == 6 || other.gameObject.layer == 7 || other.gameObject.layer == 8 || other.gameObject.layer == 11)
+        {
+
+        }
+        else
+        {
+            die = true;
+            StartCoroutine(ExplodeRoutine());
+
+        }
     }
 }

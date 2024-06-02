@@ -17,15 +17,18 @@ public class MachineGunBullet : MonoBehaviour
 
     float lifeTime = 1f;
 
+    float bulletSpeed;
+
     private void Update()
     {
-        transform.position += transform.forward * 50 * Time.deltaTime;
+        transform.position += transform.forward * bulletSpeed * Time.deltaTime;
     }
 
-    public virtual void SpawnProjectile(Vector3 spawnPos, Vector3 AimGoal)
+    public virtual void SpawnProjectile(Vector3 spawnPos, Vector3 AimGoal, float whatBulletSpeed)
     {
         spawnPosition = spawnPos;
         transform.position = spawnPos;
+        bulletSpeed = whatBulletSpeed;
 
         transform.LookAt(AimGoal);
 

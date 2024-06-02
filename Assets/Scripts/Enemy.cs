@@ -51,13 +51,26 @@ public class Enemy : MonoBehaviour
 
     float damagePauseTime = 0.4f;
     float damagePauseCurrentTime;
-
-    public float maxRange = 7;
-
-    public float shootCooldownMaxTime = 0.1f;
     float shoootCooldownLeft;
 
+    public float maxShootRange = 7;
+    public float shootCooldownMaxTime = 0.1f;
+    public float bulletSpeed = 20f;
+
+
     bool startShootCooldown;
+
+    #endregion
+
+    #region Movment
+
+    [Header("Movment")]
+
+    [SerializeField] float maxWalkDistance = 20;
+    [SerializeField] float moveSpeed = 5;
+    Vector3 spaceToMoveTo;
+    bool pauseNewNumber = false;
+    public bool stationaryEnemy = false;
 
     #endregion
 
@@ -68,10 +81,16 @@ public class Enemy : MonoBehaviour
         knockBack = false;
 
         damagePauseCurrentTime = 0;
+       
+
+
     }
 
     void Update()
     {
+        playerMovment = FindObjectOfType<PlayerMovment>();
+        float DistanceToPlayer = Vector3.Distance(playerMovment.transform.position, transform.position);
+
         #region Movemnt & Gravity
 
         if (health <= 0)
@@ -104,44 +123,47 @@ public class Enemy : MonoBehaviour
 
         if(!takeDamage && !inTheAir)
         {
-            if (!stop)
+            if (DistanceToPlayer < maxWalkDistance)
             {
-                playerMovment = FindObjectOfType<PlayerMovment>();
-                Vector3 playerTransform = playerMovment.transform.position;
-                transform.position = Vector3.MoveTowards(transform.position, playerTransform, 5 * Time.deltaTime);
+                if (!stop)
+                {
+
+                    Vector3 playerTransform = playerMovment.transform.position;
+                    transform.position = Vector3.MoveTowards(transform.position, playerTransform, moveSpeed * Time.deltaTime);
+                }
+            }
+            else
+            {
+                if (!stationaryEnemy && !stop)
+                {
+                    StartCoroutine(RandomSpaceRoutine());
+                    transform.position = Vector3.MoveTowards(transform.position, spaceToMoveTo, moveSpeed * Time.deltaTime);
+
+                    transform.LookAt(spaceToMoveTo);
+                }
             }
 
-            transform.LookAt(playerMovment.transform.position);
-
-            bulletSpawner.transform.LookAt(playerMovment.transform.position);
         }
 
         #endregion
 
         #region Weapon
 
-        float DistanceToPlayer = Vector3.Distance(playerMovment.transform.position, transform.position);
 
-        if(DistanceToPlayer < maxRange && !takeDamage && !inTheAir)
+        if(DistanceToPlayer < maxShootRange && !takeDamage && !inTheAir)
         {
            stop = true;
 
-            startShootCooldown = true;
+            transform.LookAt(playerMovment.transform.position);
 
-           //damagePauseCurrentTime -= Time.deltaTime;
+            bulletSpawner.transform.LookAt(playerMovment.transform.position);
 
-
-           //if (damagePauseCurrentTime <= 0)
-           //{
-           //     MachineGunBullet spawnProjectile = Instantiate(machineGunBullet);
-           //     spawnProjectile.SpawnProjectile(bulletSpawner.transform.position, playerMovment.transform.position);
-           //}            
+            startShootCooldown = true;            
         }
         else
         {
             startShootCooldown = false;
 
-            //damagePauseCurrentTime = 0;
             stop = false;
         }
 
@@ -185,6 +207,8 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    #region Routines
+
     IEnumerator meleeKnockbackRoutine()
     {
 
@@ -201,17 +225,9 @@ public class Enemy : MonoBehaviour
     {
         takeDamage = true;
 
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.4f);
 
         takeDamage = false;
-    }
-
-    IEnumerator ShotCooldownRoutine()
-    {
-        yield return new WaitForSeconds(shootCooldownMaxTime);
-
-        MachineGunBullet spawnProjectile = Instantiate(machineGunBullet);
-        spawnProjectile.SpawnProjectile(bulletSpawner.transform.position, playerMovment.transform.position);
     }
 
     public void ShotCooldown()
@@ -226,11 +242,27 @@ public class Enemy : MonoBehaviour
                 startShootCooldown = false;
 
                 MachineGunBullet spawnProjectile = Instantiate(machineGunBullet);
-                spawnProjectile.SpawnProjectile(bulletSpawner.transform.position, playerMovment.transform.position);
+                spawnProjectile.SpawnProjectile(bulletSpawner.transform.position, playerMovment.transform.position, bulletSpeed);
 
                 shoootCooldownLeft = shootCooldownMaxTime;
             }
         }
 
     }
+
+    IEnumerator RandomSpaceRoutine()
+    {
+        if (!pauseNewNumber)
+        {
+            pauseNewNumber = true;
+
+            spaceToMoveTo = new Vector3(transform.position.x + Random.Range(0, 5), transform.position.y, transform.position.z + Random.Range(0, 5));
+
+            yield return new WaitForSeconds(2);
+
+            pauseNewNumber = false;
+        }
+    }
+
+    #endregion
 }
