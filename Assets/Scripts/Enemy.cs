@@ -68,9 +68,14 @@ public class Enemy : MonoBehaviour
 
     [SerializeField] float maxWalkDistance = 20;
     [SerializeField] float moveSpeed = 5;
+
     Vector3 spaceToMoveTo;
+
     bool pauseNewNumber = false;
+
     public bool stationaryEnemy = false;
+
+    bool sleep;
 
     #endregion
 
@@ -81,9 +86,9 @@ public class Enemy : MonoBehaviour
         knockBack = false;
 
         damagePauseCurrentTime = 0;
-       
 
 
+        StartCoroutine(SleepOnStartRoutine());
     }
 
     void Update()
@@ -121,7 +126,7 @@ public class Enemy : MonoBehaviour
             rbEnemy.velocity = velocity;
         }
 
-        if(!takeDamage && !inTheAir)
+        if(!takeDamage && !inTheAir && !sleep)
         {
             if (DistanceToPlayer < maxWalkDistance)
             {
@@ -172,6 +177,8 @@ public class Enemy : MonoBehaviour
         #endregion
     }
 
+    #region Collisions
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.layer == 7)
@@ -207,7 +214,9 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    #region Routines
+    #endregion
+
+    #region Timers
 
     IEnumerator meleeKnockbackRoutine()
     {
@@ -264,5 +273,14 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    IEnumerator SleepOnStartRoutine()
+    {
+        sleep = true;
+
+        yield return new WaitForSeconds(0.3f);
+
+        sleep = false;
+    }
     #endregion
+
 }
