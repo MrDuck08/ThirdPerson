@@ -150,6 +150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08b49c67419cd9a4d85c051e5f4883bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  takenDamageText: {fileID: 1660917424491517312, guid: 91a45936f0e94bb4db5afc91b770d4e9, type: 3}
   explosionKnockbackStrenght: 1
   isGrounded: 0
   groundCheck: {fileID: 4272588939298947405}
@@ -163,7 +164,12 @@ MonoBehaviour:
   maxShootRange: 7
   shootCooldownMaxTime: 0.3
   bulletSpeed: 20
+  bulletLifeTime: 1
   maxWalkDistance: 30
+  moveSpeed: 5
+  fallDownAfterMelee: -0.3
+  stationaryEnemy: 0
+  isDummy: 0
 --- !u!1 &3462003710502569388
 GameObject:
   m_ObjectHideFlags: 0

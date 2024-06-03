@@ -1,15 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
     #region health & Damage
 
-    [Header("health")]
+    [Header("Health & Damage")]
+
+    [SerializeField] GameObject takenDamageText;
 
     float health = 100f;
     float damageBreakTime = 0.2f;
+    float damageTaken;
 
     public float explosionKnockbackStrenght = 2;
 
@@ -246,6 +250,23 @@ public class Enemy : MonoBehaviour
             {
                 health -= 25;
             }
+            else
+            {
+                GameObject spawnedEffect = Instantiate(takenDamageText);
+
+                damageTaken = 25;
+
+
+
+                spawnedEffect.transform.position = other.transform.position;
+                spawnedEffect.transform.GetComponent<TextMeshPro>().text = damageTaken.ToString();
+
+                spawnedEffect.transform.LookAt(playerMovment.transform.position);
+
+                spawnedEffect.transform.rotation *= Quaternion.Euler(1, -180 ,1);
+
+                StartCoroutine(DestroyEffectRoutine(spawnedEffect));
+            }
 
             StartCoroutine(TakeDamageStopRoutine());
 
@@ -264,6 +285,22 @@ public class Enemy : MonoBehaviour
             {
                 health -= 20;
             }
+            else
+            {
+                GameObject spawnedEffect = Instantiate(takenDamageText);
+
+                damageTaken = 20;
+
+
+
+                spawnedEffect.transform.position = other.transform.position;
+                spawnedEffect.transform.GetComponent<TextMeshPro>().text = damageTaken.ToString();
+
+                spawnedEffect.transform.LookAt(playerMovment.transform.position);
+                spawnedEffect.transform.rotation *= Quaternion.Euler(1, -180, 1);
+
+                StartCoroutine(DestroyEffectRoutine(spawnedEffect));
+            }
 
             meleeKnockback = true;
             StartCoroutine(TakeDamageStopRoutine());
@@ -279,6 +316,22 @@ public class Enemy : MonoBehaviour
 
                 StartCoroutine(TakeDamageStopRoutine());
                 damagePauseCurrentTime = damagePauseTime;
+            }
+            else
+            {
+                GameObject spawnedEffect = Instantiate(takenDamageText);
+
+                damageTaken = 1;
+
+                
+
+                spawnedEffect.transform.position = other.transform.position;
+                spawnedEffect.transform.GetComponent<TextMeshPro>().text = damageTaken.ToString();
+
+                spawnedEffect.transform.LookAt(playerMovment.transform.position);
+                spawnedEffect.transform.rotation *= Quaternion.Euler(1, -180, 1);
+
+                StartCoroutine(DestroyEffectRoutine(spawnedEffect));
             }
         }
     }
@@ -349,6 +402,15 @@ public class Enemy : MonoBehaviour
         yield return new WaitForSeconds(0.3f);
 
         sleep = false;
+    }
+
+    IEnumerator DestroyEffectRoutine(GameObject objectToDestroy)
+    {
+
+
+        yield return new WaitForSeconds(1f);
+
+        Destroy(objectToDestroy);
     }
     #endregion
 
