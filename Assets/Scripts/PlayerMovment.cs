@@ -51,16 +51,28 @@ public class PlayerMovment : MonoBehaviour
 
     public bool meleeAtack = false;
 
-    public float meleeAtackTime = 0.1f;
+    public float stopMovmentAfterMeleeTime = 0.1f;
+    public float attackPauseTime = -1f;
     public float meleeAtackTimeLeft;
 
     #endregion
 
+    #region Layer
+
+    [Header("Layer")]
+
     public LayerMask ignoreLayer;
 
-    float health = 100;
+    #endregion
 
-    public float howlongStill = -1f;
+    #region Spawner
+
+    [Header("Spawner")]
+
+    [SerializeField] GameObject[] SpawnableObject;
+
+    #endregion
+
 
     void Start()
     {
@@ -70,11 +82,8 @@ public class PlayerMovment : MonoBehaviour
 
     void Update()
     {
-        if(health < 0)
-        {
-            Debug.Log("DIE");
-            Time.timeScale = 0;
-        }
+        #region Movment
+
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
         if (isGrounded && velocity.y < 0)
@@ -108,7 +117,9 @@ public class PlayerMovment : MonoBehaviour
             rb.velocity = Movment * moveSpeed + velocity;
         }
 
+        #endregion
 
+        #region melee
 
         if (meleeAtack)
         {
@@ -122,34 +133,52 @@ public class PlayerMovment : MonoBehaviour
             {
                 rb.velocity = Vector3.zero;
             }
-            if(meleeAtackTimeLeft <= howlongStill)
+            if(meleeAtackTimeLeft <= attackPauseTime)
             {
                 meleeAtack = false;
                 knockBack = false;
             }
         }
 
+
         Ray WeaponRay = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
         RaycastHit hit = new RaycastHit();
 
         if (Physics.Raycast(WeaponRay, out hit, Mathf.Infinity, ~ignoreLayer))
         {
-
             gameObject.transform.GetChild(2).gameObject.transform.GetChild(1).gameObject.transform.LookAt(hit.point);
         }
 
+        #endregion
+
+        #region Spawner
+
+        if(Input.GetKeyDown(KeyCode.I))
+        {
+            GameObject spawnedObject = Instantiate(SpawnableObject[0]);
+
+            spawnedObject.transform.position = hit.point + new Vector3(0, 3, 0);
+        }
+
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            GameObject spawnedObject = Instantiate(SpawnableObject[1]);
+
+            spawnedObject.transform.position = hit.point + new Vector3(0,3,0);
+        }
+
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            GameObject spawnedObject = Instantiate(SpawnableObject[2]);
+
+            spawnedObject.transform.position = hit.point + new Vector3(0, 3, 0);
+        }
+
+        #endregion
     }
 
     void OnMove(InputValue value)
     {
         movementInput = value.Get<Vector3>();
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if(collision.gameObject.layer == 7)
-        {
-            health -= 10;
-        }
     }
 }

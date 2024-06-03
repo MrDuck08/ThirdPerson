@@ -24,11 +24,12 @@ public class MachineGunBullet : MonoBehaviour
         transform.position += transform.forward * bulletSpeed * Time.deltaTime;
     }
 
-    public virtual void SpawnProjectile(Vector3 spawnPos, Vector3 AimGoal, float whatBulletSpeed)
+    public virtual void SpawnProjectile(Vector3 spawnPos, Vector3 AimGoal, float whatBulletSpeed, float bulletLifeTime)
     {
         spawnPosition = spawnPos;
         transform.position = spawnPos;
         bulletSpeed = whatBulletSpeed;
+        lifeTime = bulletLifeTime;
 
         transform.LookAt(AimGoal);
 
@@ -41,5 +42,17 @@ public class MachineGunBullet : MonoBehaviour
         yield return new WaitForSeconds(lifeTime);
 
         Destroy(gameObject);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.layer == 3 || other.gameObject.layer == 10 || other.gameObject.layer == 11)
+        {
+
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 }

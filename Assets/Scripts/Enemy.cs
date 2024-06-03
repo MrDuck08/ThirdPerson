@@ -49,13 +49,14 @@ public class Enemy : MonoBehaviour
 
     [SerializeField] GameObject bulletSpawner;
 
-    float damagePauseTime = 0.4f;
+    float damagePauseTime = 0.1f;
     float damagePauseCurrentTime;
     float shoootCooldownLeft;
 
     public float maxShootRange = 7;
     public float shootCooldownMaxTime = 0.1f;
     public float bulletSpeed = 20f;
+    public float bulletLifeTime = 1f;
 
 
     bool startShootCooldown;
@@ -68,14 +69,22 @@ public class Enemy : MonoBehaviour
 
     [SerializeField] float maxWalkDistance = 20;
     [SerializeField] float moveSpeed = 5;
+    [SerializeField] float fallDownAfterMelee = -0.3f;
 
     Vector3 spaceToMoveTo;
 
     bool pauseNewNumber = false;
+    bool sleep;
+    bool meleeKnockback = false;
+
+    #endregion
+
+    #region Modes
+
+    [Header("Mode")]
 
     public bool stationaryEnemy = false;
-
-    bool sleep;
+    public bool isDummy = false;
 
     #endregion
 
@@ -126,55 +135,103 @@ public class Enemy : MonoBehaviour
             rbEnemy.velocity = velocity;
         }
 
-        if(!takeDamage && !inTheAir && !sleep)
+        #endregion
+
+        #region Enemy AI + Weapon
+
+        if (!isDummy)
         {
-            if (DistanceToPlayer < maxWalkDistance)
-            {
-                if (!stop)
-                {
 
-                    Vector3 playerTransform = playerMovment.transform.position;
-                    transform.position = Vector3.MoveTowards(transform.position, playerTransform, moveSpeed * Time.deltaTime);
+            #region Enemy AI
+
+            if (!takeDamage && !inTheAir && !sleep)
+            {
+                if (DistanceToPlayer < maxWalkDistance)
+                {
+                    if (!stop)
+                    {
+
+                        Vector3 playerTransform = playerMovment.transform.position;
+                        transform.position = Vector3.MoveTowards(transform.position, playerTransform, moveSpeed * Time.deltaTime);
+
+                        transform.LookAt(new Vector3(playerMovment.transform.position.x, transform.position.y, playerMovment.transform.position.z));
+
+                        bulletSpawner.transform.LookAt(playerMovment.transform.position);
+                    }
+                }
+                else
+                {
+                    if (!stationaryEnemy && !stop)
+                    {
+                        StartCoroutine(RandomSpaceRoutine());
+                        transform.position = Vector3.MoveTowards(transform.position, spaceToMoveTo, moveSpeed * Time.deltaTime);
+
+                        transform.LookAt(new Vector3(spaceToMoveTo.x, transform.position.y, spaceToMoveTo.z));
+
+
+                    }
                 }
             }
-            else
-            {
-                if (!stationaryEnemy && !stop)
+
+            #endregion
+
+            #region Weapon
+
+
+            if (DistanceToPlayer < maxShootRange && !takeDamage && !inTheAir)
                 {
-                    StartCoroutine(RandomSpaceRoutine());
-                    transform.position = Vector3.MoveTowards(transform.position, spaceToMoveTo, moveSpeed * Time.deltaTime);
+                    stop = true;
 
-                    transform.LookAt(spaceToMoveTo);
+                    transform.LookAt(new Vector3(playerMovment.transform.position.x, transform.position.y, playerMovment.transform.position.z));
+
+                    bulletSpawner.transform.LookAt(playerMovment.transform.position);
+
+                    startShootCooldown = true;
                 }
-            }
+                else
+                {
+                    startShootCooldown = false;
 
+                    stop = false;
+                }
+
+
+                ShotCooldown();
+                #endregion
+          
+        }
+        #endregion
+
+        #region Am I Dummy?
+        if (isDummy)
+        {
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+        }
+        #endregion
+
+        #region Melee Knockback
+
+        if (meleeKnockback)
+        {
+            damagePauseCurrentTime -= Time.deltaTime;
+
+            knockBack = true;
+
+
+
+            if (damagePauseCurrentTime <= 0)
+            {
+                rbEnemy.velocity = Vector3.zero;
+            }
+            if (damagePauseCurrentTime <= fallDownAfterMelee)
+            {
+                meleeKnockback = false;
+                knockBack = false;
+            }
         }
 
         #endregion
 
-        #region Weapon
-
-
-        if(DistanceToPlayer < maxShootRange && !takeDamage && !inTheAir)
-        {
-           stop = true;
-
-            transform.LookAt(playerMovment.transform.position);
-
-            bulletSpawner.transform.LookAt(playerMovment.transform.position);
-
-            startShootCooldown = true;            
-        }
-        else
-        {
-            startShootCooldown = false;
-
-            stop = false;
-        }
-
-
-        ShotCooldown();
-        #endregion
     }
 
     #region Collisions
@@ -185,10 +242,14 @@ public class Enemy : MonoBehaviour
         {
             velocity.y += Mathf.Sqrt(explosionKnockbackStrenght * -2 * gravity);
 
-            health -= 0;
+            if (!isDummy)
+            {
+                health -= 25;
+            }
 
-            StartCoroutine(TakeDamageStopRoutine(damageBreakTime));
-            rbEnemy.velocity = velocity;
+            StartCoroutine(TakeDamageStopRoutine());
+
+            
             damagePauseCurrentTime = damagePauseTime;
         }
 
@@ -197,20 +258,28 @@ public class Enemy : MonoBehaviour
             knockBack = true;
 
             rbEnemy.velocity = Vector3.zero + other.gameObject.transform.forward * 20;
+            //rbEnemy.velocity = velocity;
 
-            health -= 20;
+            if (!isDummy)
+            {
+                health -= 20;
+            }
 
-            StartCoroutine(TakeDamageStopRoutine(damageBreakTime));
-            StartCoroutine(meleeKnockbackRoutine());
+            meleeKnockback = true;
+            StartCoroutine(TakeDamageStopRoutine());
+            //StartCoroutine(meleeKnockbackRoutine());
             damagePauseCurrentTime = damagePauseTime;
         }
 
         if (other.gameObject.layer == 8)
         {
-            health -= 1;
+            if(!isDummy)
+            {
+                health -= 1;
 
-            StartCoroutine(TakeDamageStopRoutine(damageBreakTime));
-            damagePauseCurrentTime = damagePauseTime;
+                StartCoroutine(TakeDamageStopRoutine());
+                damagePauseCurrentTime = damagePauseTime;
+            }
         }
     }
 
@@ -230,7 +299,7 @@ public class Enemy : MonoBehaviour
         knockBack = false;
     }
 
-    IEnumerator TakeDamageStopRoutine(float howLongTillFalse)
+    IEnumerator TakeDamageStopRoutine()
     {
         takeDamage = true;
 
@@ -251,7 +320,7 @@ public class Enemy : MonoBehaviour
                 startShootCooldown = false;
 
                 MachineGunBullet spawnProjectile = Instantiate(machineGunBullet);
-                spawnProjectile.SpawnProjectile(bulletSpawner.transform.position, playerMovment.transform.position, bulletSpeed);
+                spawnProjectile.SpawnProjectile(bulletSpawner.transform.position, playerMovment.transform.position, bulletSpeed, bulletLifeTime);
 
                 shoootCooldownLeft = shootCooldownMaxTime;
             }
@@ -265,7 +334,7 @@ public class Enemy : MonoBehaviour
         {
             pauseNewNumber = true;
 
-            spaceToMoveTo = new Vector3(transform.position.x + Random.Range(0, 5), transform.position.y, transform.position.z + Random.Range(0, 5));
+            spaceToMoveTo = new Vector3(transform.position.x + Random.Range(-5, 5), transform.position.y, transform.position.z + Random.Range(-5, 5));
 
             yield return new WaitForSeconds(2);
 

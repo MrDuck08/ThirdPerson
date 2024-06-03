@@ -191,7 +191,7 @@ MonoBehaviour:
   options: {fileID: 11400000, guid: 82899a57bdfdad146948be3f5302c406, type: 2}
   mouseSensitivity: 400
   playerBody: {fileID: 4733328569251172003}
-  yClamp: -10
+  yClamp: -15
   zClamp: 40
 --- !u!1 &2492581559009131047
 GameObject:
@@ -655,12 +655,16 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   meleeAtack: 0
-  meleeAtackTime: 0.11
+  stopMovmentAfterMeleeTime: 0.1
+  attackPauseTime: -0.3
   meleeAtackTimeLeft: 0
   ignoreLayer:
     serializedVersion: 2
     m_Bits: 3012
-  howlongStill: -0.3
+  SpawnableObject:
+  - {fileID: 1061069692684160042, guid: cad09a6a14606764abe2c49c2f5a476c, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &1990587886911906444
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -721,7 +725,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d287b95895fb2fb479a21d5904ae976e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
+  loseCanvas: {fileID: 0}
+  dead: 0
 --- !u!1 &5974049034470754173
 GameObject:
   m_ObjectHideFlags: 0

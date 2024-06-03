@@ -21,7 +21,6 @@ public class ProjectileWeapon : Weapon
     }
 
 
-
     public override bool Fire()
     {
         if (base.Fire() == false)

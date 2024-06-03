@@ -5,7 +5,6 @@ using UnityEngine;
 public class Melee : Weapon
 {
 
-
     [SerializeField] Transform playerTransform;
 
     DualKnifes dualKnifes;
@@ -32,7 +31,7 @@ public class Melee : Weapon
         {
             dualKnifes.DualKnifeAttack(playerTransform);
 
-            playerMovment.meleeAtackTimeLeft = playerMovment.meleeAtackTime;
+            playerMovment.meleeAtackTimeLeft = playerMovment.stopMovmentAfterMeleeTime;
             playerMovment.meleeAtack = true;
 
         }

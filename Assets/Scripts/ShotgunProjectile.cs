@@ -28,6 +28,8 @@ public class ShotgunProjectile : MonoBehaviour
         transform.position += transform.forward * 50 * Time.deltaTime;
     }
 
+    #region Spawn
+
     public virtual void SpawnProjectile(Vector3 spawnPos, Vector3 AimPosition, RaycastHit hit)
     {
         spawnPosition = spawnPos;
@@ -53,6 +55,8 @@ public class ShotgunProjectile : MonoBehaviour
         StartCoroutine(LifeRoutine());
     }
 
+    #endregion
+
     IEnumerator LifeRoutine()
     {
 
@@ -60,6 +64,8 @@ public class ShotgunProjectile : MonoBehaviour
 
         Destroy(gameObject);
     }
+
+    #region Collisions
 
     private void OnTriggerEnter(Collider other)
     {
@@ -72,4 +78,6 @@ public class ShotgunProjectile : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    #endregion
 }

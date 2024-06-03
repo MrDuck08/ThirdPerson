@@ -11,15 +11,21 @@ public class MenuHandler : MonoBehaviour
 
     public bool MenuIsActive;
 
+    PlayerHealthScript playerHealthScript;
+
+    private void Start()
+    {
+        playerHealthScript = FindObjectOfType<PlayerHealthScript>();
+
+        menuCanvas.SetActive(false);
+    }
+
     private void Update()
     {
         MenuAnywhere();
     }
 
-    private void Start()
-    {
-        menuCanvas.SetActive(false);
-    }
+    #region Buttons
 
     public void startAgain()
     {
@@ -28,36 +34,47 @@ public class MenuHandler : MonoBehaviour
         MenuIsActive = false;
     }
 
+    #endregion
+
+    #region Menu Anywhere
+
     void MenuAnywhere()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if(playerHealthScript.dead == false)
         {
-
-            if (!MenuIsActive)
+            if (Input.GetKeyDown(KeyCode.Escape))
             {
-                menuCanvas.SetActive(true);
 
-                MenuIsActive = true;
+                if (!MenuIsActive)
+                {
+                    menuCanvas.SetActive(true);
 
-                Cursor.lockState = CursorLockMode.None;
+                    MenuIsActive = true;
 
-                Time.timeScale = 0f;
+                    Cursor.lockState = CursorLockMode.None;
 
-                return;
-            }
+                    Time.timeScale = 0f;
 
-            if (MenuIsActive)
-            {
-                menuCanvas.SetActive(false);
+                    return;
+                }
 
-                Cursor.lockState = CursorLockMode.Locked;
+                if (MenuIsActive)
+                {
+                    menuCanvas.SetActive(false);
 
-                MenuIsActive = false;
+                    Cursor.lockState = CursorLockMode.Locked;
 
-                Time.timeScale = 1f;
+                    MenuIsActive = false;
+
+                    Time.timeScale = 1f;
+                }
             }
         }
     }
+
+    #endregion
+
+    #region Options
 
     public void ChangeSensetivity()
     {
@@ -69,4 +86,6 @@ public class MenuHandler : MonoBehaviour
             options.cameraSensativity = inputFieldValue;
         }
     }
+
+    #endregion
 }

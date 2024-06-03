@@ -4,22 +4,30 @@ using UnityEngine;
 
 public class PlayerHealthScript : MonoBehaviour
 {
-    public float health = 100;
+    float health = 100;
 
+    [SerializeField] GameObject loseCanvas;
 
-    private void Update()
+    public bool dead = false;
+
+    private void Start()
     {
-        if (health <= 0)
-        {
-            Time.timeScale = 0f;
-        }
+        loseCanvas.SetActive(false);
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.layer == 11)
         {
-            health -= 1;
+            health -= 5;
+            if (health <= 0)
+            {
+                Time.timeScale = 0f;
+                loseCanvas.SetActive(true);
+                dead = true;
+
+                Cursor.lockState = CursorLockMode.None;
+            }
         }
     }
 }

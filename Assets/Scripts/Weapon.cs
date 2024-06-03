@@ -37,9 +37,4 @@ public class Weapon : MonoBehaviour
 
 
     }
-
-    public virtual IEnumerator Ienumirator(float howLongWait)
-    {
-        yield return new WaitForSeconds(howLongWait);
-    }
 }
